@@ -1,0 +1,19 @@
+{
+  "name": "Rest API",
+  "version": "0.0.1",
+  "description": "Proyecto de RestApi con Express y MongoDB",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Pablo Cuenca",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "prettier-config-standard": "^7.0.0"
+  }
+}

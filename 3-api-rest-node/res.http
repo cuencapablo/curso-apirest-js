@@ -1,0 +1,66 @@
+###
+POST {{URL}}/signup
+Content-Type: application/json
+
+{
+  "name": "Pablo Cuenca",
+  "email": "cuenca@test.com",
+  "password": "cuencapm"
+}
+
+###
+POST {{URL}}/login
+Content-Type: application/json
+
+{
+  "email": "admin@test.com",
+  "password": "adminPassword"
+}
+
+{% 
+
+local body = context.json_decode(context.result.body)
+context.set_env("TOKEN", body.token, { persist=true })
+context.set_env("ID_USER", body.userId, { persist=true })
+
+%}
+
+###
+GET {{URL}}/task
+Authorization: Bearer {{TOKEN}}
+
+###
+POST {{URL}}/task
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+  "title": "Tarea con JWT Segunda",
+  "text": "Mi segunda tarea colocando JWT"
+}
+
+{% 
+
+local body = context.json_decode(context.result.body)
+context.set_env("ID_TASK", body.task._id)
+
+%
+}
+
+###
+PATCH {{URL}}/task/{{ID_TASK}}
+Content-Type: application/json
+Authorization: Bearer {{TOKEN}}
+
+{
+  "title": "Tarea de prueba !MODIFICACÓN!!!!",
+  "text": "Esta tarea está actualizada"
+}
+
+###
+DELETE {{URL}}/task/delete/{{ID_TASK}}
+Authorization: Bearer {{TOKEN}}
+
+###
+DELETE {{URL}}/user/delete/{{ID_USER}}
+Authorization: Bearer {{TOKEN}}
